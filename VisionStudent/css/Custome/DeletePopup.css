@@ -1,0 +1,45 @@
+﻿#delete_message {
+    display: none;
+    position: fixed;
+    top: 51px;
+    left: 0px;
+    width: 100%;
+    height: 150px;
+    background-color: #5882FA;
+    text-align: center;
+}
+
+    #delete_message h2 {
+        color: white;
+    }
+
+#delete, #cancel {
+    border: none;
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid white;
+    margin: 10px;    
+}
+
+#cancel {
+    background: white;
+    color: black;
+}
+#delete {
+background:red;
+color:white;
+}
+
+#test_delete {
+    border: none;
+    background: none;
+    width: 400px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid #819FF7;
+    margin: 10px;
+    color: #045FB4;
+}

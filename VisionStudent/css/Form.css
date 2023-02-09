@@ -1,0 +1,36 @@
+﻿.card {
+    box-shadow: 0 4px 42px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60%;
+    border-radius: 12px;
+    position: relative;
+    top: 70px;
+    left: 213px;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+.width-lable {
+    width: 44% !important;
+    right: 15px;
+}
+
+.content-center {
+    display: flex;
+    justify-content: center;
+}
+.pad-bot-8px {
+    padding-bottom: 8px;
+}
+.disp-center{
+    display:flex;
+    justify-content:center;
+}
+.img {
+    height: 117px;
+    width: 38%;
+    border-radius: 50%;
+    /*  cursor:pointer;*/
+}

@@ -1,0 +1,156 @@
+﻿@model IEnumerable<VisionStudent.DTO.DTO.GetStudentDtos>
+
+@{
+    ViewBag.Title = "GetStudentList";
+}
+
+<link href="~/css/GetStudentList.css" rel="stylesheet" />
+<link href="~/css/ImagePopup.css" rel="stylesheet" />
+<link href="~/css/Custome/GridTable.css" rel="stylesheet" />
+<link href="~/css/Custome/DeletePopup.css" rel="stylesheet" />
+@if (@TempData["Message"] != null)
+{
+    <div class="Success-alert alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>@TempData["Message"].ToString()</strong>
+    </div>
+    @*<h3 style="color:green">@TempData["Message"].ToString()</h3>*@
+}
+@if (@TempData["Delete"] != null)
+{
+    <div class="Delete-alert alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>@TempData["Delete"].ToString()</strong>
+    </div>
+}
+
+<div class="col-md-12 d-flex-end p-t-b-l-r ">
+    <button class="btn btn-primary" onclick="GotoAddStudent();">+ Add</button>
+</div>
+
+<div class="row">
+    <div class="col-md-12 d-flex-center p-t-b-l-r ">
+        @*<input id="txtSearch" type="text" name="search" placeholder="Enter search Text" class="form-control" />*@
+        <h2 style="font-weight: bold;">Student List</h2>
+    </div>
+
+    <div id="divtbl">
+        <table id="tblStudent" class="table table-hover">
+            <thead style="position:sticky; top:0;">
+                <tr>
+                    <th style="padding-left: 25px; width: 10% !important;">Profile</th>
+                    <th style="width:14% !important;">student name</th>
+                    <th style="width:11% !important;">address</th>
+                    <th style="width:9% !important;">class</th>
+                    <th style="width:9% !important;">age</th>
+                    <th style="width:11% !important;">hobbies</th>
+                    <th style="width:10% !important;">gender</th>
+                    <th style="width:12% !important;">cityname</th>
+                    <th style="width:11% !important;">pincode</th>
+                    <th style="width:12% !important;">Action</th>
+                </tr>
+                @*<tr>
+                        <th style="padding-left: 28px;">
+                            @Html.DisplayName("Profile")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Class)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Hobbies)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CityName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PinCode)
+                        </th>
+                        <th>Action</th>
+                    </tr>*@
+            </thead>
+            @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="width:12%">
+                                <img id="imgProfile" src="@item.Photo" alt="Image" class="img" onclick="popupImage(event);">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Class)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hobbies)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CityName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PinCode)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "GetStudentById", new { studentId = item.Id }, new { @class = "btnedit" })
+                                @Html.ActionLink("Delete", "DeleteStudent", new { studentId = item.Id }, new { @class = "btndel", onclick = "return confirm('Are you sure you want to delete?')" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>*@
+            @*<tfoot>
+                <tr>
+                    <th style="padding-left: 28px;">Profile</th>
+                    <th>student name</th>
+                    <th>address</th>
+                    <th>class</th>
+                    <th>age</th>
+                    <th>hobbies</th>
+                    <th>gender</th>
+                    <th>cityname</th>
+                    <th>pincode</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>*@
+        </table>
+    </div>
+</div>
+<div class="shows">
+    <div class="overlay"></div>
+    <div class="img-show">
+        <span style="color: white; font-weight: 800;"><i class="fa-sharp fa-solid fa-circle-xmark fa-xl"></i></span>
+        <img id="imgPopup" src="" data-zoom-image="">
+    </div>
+</div>
+
+@*
+    Delete confirmation popup setup
+*@
+
+<div class="row">
+    <div id="delete_message">
+        <h2>Are You Sure You Want To Delete Student</h2>
+        <input type="button" value="Delete" id="delete">
+        <input type="button" value="Cancel" id="cancel">
+    </div>
+</div>

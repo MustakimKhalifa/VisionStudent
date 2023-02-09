@@ -1,0 +1,439 @@
+﻿@model VisionStudent.DTO.Models.Student
+
+@{
+    //ViewBag.Title = "CreateStudent";
+}
+<link href="~/css/Form.css" rel="stylesheet" />
+<style>
+    .dnone {
+        display: none !important;
+    }
+
+    .validation-font-size {
+        font-size: 75% !important;
+        font-weight: 700 !important;
+    }
+</style>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<h3>@ViewBag.Message</h3>
+
+<div class="card content-center">
+
+    @using (Html.BeginForm("CreateStudent", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2 style="text-align-last: center;">Student</h2>
+            <hr />
+            <div class="col-md-12 disp-center pad-bot-8px">
+                <img src="~/Upload/no-profile.png" alt="No imagae" class="img" id="imgProfile">
+            </div>
+            <div class="col-md-12 disp-center">
+                <p id="photoError" style="color: #a94442" class="dnone label">Profile Required</p>
+                @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger validation-font-size" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.File, new { type = "file" })
+                    @*<p id="photoError" style="color: #a94442" class="dnone label">Required</p>*@
+                    @*<img src="" alt="No imagae" class="img" id="imgProfile">*@
+                    @Html.HiddenFor(m => m.Photo)
+                    @*@Html.EditorFor(model => model.Photo, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @*@Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger validation-font-size" })*@
+                </div>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "col-md-2" })
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter student name" } })
+                    <p id="NameError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter address" })
+                    @*@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })*@
+                    <p id="addressError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Class, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="drdClass" required class="form-control">
+                        <option value="">select class</option>
+                        <option value="class1">Class 1</option>
+                        <option value="class2">Class 2</option>
+                        <option value="class3">Class 3</option>
+                    </select>
+                    <p id="classError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.HiddenFor(m => m.Class)
+                    @*@Html.EditorFor(model => model.Class, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter age" } })
+                    <p id="ageError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Hobbies, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="padding-top: 6px;">
+                    @Html.CheckBox("Reading", false)@Html.Label("Reading")
+                    @Html.CheckBox("Writing", false)@Html.Label("Writing")
+                    @Html.CheckBox("Gaming", false)@Html.Label("Gaming")
+                    @Html.HiddenFor(m => m.Hobbies)
+                    @* @Html.EditorFor(model => model.Hobbies, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.Hobbies, "", new { @class = "text-danger validation-font-size" })
+                    <div class="col-md-10" style="left:-16px">
+                        <p id="hobbiesError" style="color: #a94442" class="dnone label">Please select atleast one Hobby</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(m => m.Gender, "Male", new { @checked = "checked" })@Html.Label("Male")
+                    @Html.RadioButtonFor(m => m.Gender, "Female")@Html.Label("Female")
+                    @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("State", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="drdState" class="form-control">
+                        <option value="">Select State</option>
+                    </select>
+                    <p id="stateError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.HiddenFor(m => m.StateId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="drdCity" class="form-control">
+                        <option value="">Select City</option>
+                    </select>
+                    <p id="cityError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.HiddenFor(m => m.CityId)
+                    @*@Html.EditorFor(model => model.CityId, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PinCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter pincode" } })
+                    <p id="pincodeError" style="color: #a94442" class="dnone label">Required</p>
+                    @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger validation-font-size" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="btnSave" type="submit" value="Save" class="btn btn-primary" />
+                    <input id="btnCancel" type="button" value="Clear" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/Custom/FileUploadChange.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            ClearControlValue()
+            getStateList()
+            CheckBoxChangeFunction()
+
+            validateForm();
+
+            $(document).on("change", "#File", function () {
+                $("#photoError").addClass('dnone');
+                var value = $("#File").val();
+                $("#Photo").val(value);
+            });
+
+            $(document).on("change", "#drdCity", function () {
+                $("#cityError").addClass('dnone');
+                var value = $("#drdCity").val();
+                $("#CityId").val(value);
+
+            });
+
+            $(document).on("change", "#drdClass", function () {
+                var classval = $("#drdClass").val();
+                $("#Class").val(classval);
+                console.log(classval);
+
+                //add display none class
+                $("#classError").addClass('dnone');
+            });
+
+            $(document).on("change", "#drdState", function () {
+
+                //add dsiplay none class
+                $("#stateError").addClass('dnone');
+
+                var statevalue = $("#drdState").val();
+                $("#StateId").val(statevalue);
+
+                var url = window.location.origin + "/Student/GetCityList";
+
+                $("#drdCity option").remove();
+                $("#drdCity").append("<option value=''>Select City </option>");
+
+                var StateId = $("#drdState").val();
+
+                if (StateId != '' && StateId != null && StateId != undefined) {
+                    $.ajax({
+                        url: url,
+                        data: { stateId: StateId },
+                        type: 'POST',
+                        dataType: 'json', // added data type
+                        success: function (res) {
+                            $.each(res, function (key, value) {
+                                var opt = "<option value='" + value.CityId + "'>" + value.CityName + "</option>";
+                                $("#drdCity").append(opt);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        function validateForm() {
+            //Validation code
+            $(document).on("click", "#btnSave", function (e) {
+
+                if ($("#StudentName").val() == '' || $("#StudentName").val() == null) {
+                    //remove display none class
+                    $("#NameError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#Address").val() == '' || $("#Address").val() == null) {
+                    //remove display none class
+                    $("#addressError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#Hobbies").val() == '' || $("#Hobbies").val() == null) {
+                    //remove display none class
+                    $("#hobbiesError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#drdState").val() == '' || $("#drdState").val() == null) {
+                    //remove display none class
+                    $("#stateError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#drdCity").val() == '' || $("#drdCity").val() == null) {
+                    //remove display none class
+                    $("#cityError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#PinCode").val() == '' || $("#PinCode").val() == null) {
+                    //remove display none class
+                    $("#pincodeError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#drdClass").val() == '' || $("#drdClass").val() == null) {
+                    //remove display none class
+                    $("#classError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#Photo").val() == '' || $("#Photo").val() == null) {
+                    //remove display none class
+                    $("#photoError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+                if ($("#Age").val() == '' || $("#Age").val() == null) {
+                    //remove display none class
+                    $("#ageError").removeClass('dnone');
+                    e.preventDefault();
+                }
+
+            });
+
+            $("#StudentName").blur(function () {
+                if ($("#StudentName").val() == '' || $("#StudentName").val() == null) {
+                    //remove display none class
+                    $("#NameError").removeClass('dnone');
+                    e.preventDefault();
+                } else {
+                    //add display none class
+                    $("#NameError").addClass('dnone');
+                }
+            });
+
+            $("#Age").blur(function () {
+                if ($("#Age").val() == '' || $("#Age").val() == null) {
+                    //remove display none class
+                    $("#ageError").removeClass('dnone');
+                    e.preventDefault();
+                } else {
+                    //add display none class
+                    $("#ageError").addClass('dnone');
+                }
+            });
+
+            $("#Address").blur(function () {
+                if ($("#Address").val() == '' || $("#Address").val() == null) {
+                    //remove display none class
+                    $("#addressError").removeClass('dnone');
+                    e.preventDefault();
+                } else {
+                    //add display none class
+                    $("#addressError").addClass('dnone');
+                }
+            });
+
+
+            $("#PinCode").blur(function () {
+                if ($("#PinCode").val() == '' || $("#PinCode").val() == null) {
+                    //remove display none class
+                    $("#pincodeError").removeClass('dnone');
+                    e.preventDefault();
+                } else {
+                    //add display none class
+                    $("#pincodeError").addClass('dnone');
+                }
+            });
+
+        }
+
+        function getStateList() {
+            var url = window.location.origin + "/Student/GetStateList";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json', // added data type
+                success: function (res) {
+                    $.each(res, function (key, value) {
+                        var opt = "<option value='" + value.StateId + "'>" + value.StateName + "</option>";
+                        $("#drdState").append(opt);
+                    });
+                }
+            });
+        }
+
+        function CheckBoxChangeFunction() {
+            var hobbies = "";
+            $('#Reading').change(function () {
+                $("#hobbiesError").addClass('dnone');
+                if (this.checked) {
+                    hobbies += $('#Reading').prop('name') + ",";
+                    $("#Hobbies").val(hobbies);
+                    console.log("checked");
+
+                } else {
+
+                    hobbies = hobbies.replace("," + $("#Reading").prop("name"), '');
+                    hobbies = hobbies.replace($("#Reading").prop("name") + ",", '');
+                    $("#Hobbies").val(hobbies);
+                    console.log("uchecked");
+                }
+
+                console.log(hobbies)
+            });
+
+            $('#Writing').change(function () {
+                $("#hobbiesError").addClass('dnone');
+                if (this.checked) {
+                    hobbies += $('#Writing').prop('name') + ",";
+                    $("#Hobbies").val(hobbies);
+                    console.log("checked");
+
+                } else {
+
+                    hobbies = hobbies.replace("," + $("#Writing").prop("name"), '');
+                    hobbies = hobbies.replace($("#Writing").prop("name") + ",", '');
+                    $("#Hobbies").val(hobbies);
+                    console.log("uchecked");
+                }
+
+                console.log(hobbies)
+            });
+
+            $('#Gaming').change(function () {
+                $("#hobbiesError").addClass('dnone');
+                if (this.checked) {
+                    hobbies += $('#Gaming').prop('name') + ",";
+                    $("#Hobbies").val(hobbies);
+                    console.log("checked");
+
+                } else {
+
+                    hobbies = hobbies.replace("," + $("#Gaming").prop("name"), '');
+                    hobbies = hobbies.replace($("#Gaming").prop("name") + ",", '');
+                    $("#Hobbies").val(hobbies);
+                    console.log("uchecked");
+                }
+
+                console.log(hobbies)
+            });
+
+        }
+
+        function ClearControlValue() {
+            $(document).on("click", "#btnCancel", function () {
+                /// <summary>
+                /// s this instance.
+                /// </summary>
+                /// <returns></returns>
+                $("#StudentName").val('');
+                $("#Address").val('');
+                $("#drdClass").val('');
+                $("#Class").val('');
+                $("#Age").val('');
+                $("#drdState").val('');
+                $("#StateId").val('');
+                $("#drdCity").val('');
+                $("#CityId").val('');
+                $("#PinCode").val('');
+                $("#File").val('');
+                $("#Photo").val('');
+                $('#Reading').prop('checked', false);
+                $('#Writing').prop('checked', false);
+                $('#Gaming').prop('checked', false);
+                $("#Hobbies").val('');
+                $("#imgProfile").prop('src', '/Upload/no-profile.png');
+            });
+        }
+
+    </script>
+}
