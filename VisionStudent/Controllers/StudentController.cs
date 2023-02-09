@@ -10,7 +10,6 @@ namespace VisionStudent.Controllers
 {
     public class StudentController : Controller
     {
-        //private StudentBAL _studentBAL = new StudentBAL();
         private readonly IStudentBAL _studentBAL;
 
         public StudentController(IStudentBAL studentBAL)
